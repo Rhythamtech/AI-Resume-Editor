@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ r.name }} | {{ r.job_role }}</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --text-main: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --border: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px;
+            background: #fff;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin: 0;
+            color: #111;
+            line-height: 1.1;
+        }
+
+        .header-left .role {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .header-right a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        section {
+            margin-bottom: 35px;
+        }
+
+        h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .summary {
+            font-size: 16px;
+            color: #4b5563;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: #111;
+        }
+
+        .item-date {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .item-meta {
+            font-size: 15px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 6px;
+            position: relative;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-tag {
+            background: var(--bg-light);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .project-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            header {
+                margin-bottom: 30px;
+            }
+
+            section {
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <h1>{{ r.name }}</h1>
+            <div class="role">{{ r.job_role }}</div>
+        </div>
+        <div class="header-right">
+            <div>{{ r.contact.city }}, {{ r.contact.region }}</div>
+            <div>{{ r.contact.phone }}</div>
+            <div><a href="mailto:{{ r.contact.email }}">{{ r.contact.email }}</a></div>
+            {% for link in r.contact.links %}
+            <div><a href="{{ link.url }}">{{ link.label }}</a></div>
+            {% endfor %}
+        </div>
+    </header>
+
+    {% if r.summary %}
+    <section>
+        <h2>Executive Summary</h2>
+        <div class="summary">{{ r.summary }}</div>
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Technical Expertise</h2>
+        <div class="skills-grid">
+            {% for skill in r.skills %}
+            <div class="skill-tag">{{ skill.name }}</div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h2>Professional Experience</h2>
+        {% for job in r.experience %}
+        <div style="margin-bottom: 25px;">
+            <div class="item-header">
+                <div class="item-title">{{ job.title }}</div>
+                <div class="item-date">{{ job.start_date }} – {{ job.end_date if job.end_date else 'Present' }}</div>
+            </div>
+            <div class="item-meta">{{ job.company }} • {{ job.location }}</div>
+            <ul>
+                {% for achievement in job.achievements %}
+                <li>{{ achievement }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </section>
+
+    {% if r.projects %}
+    <section>
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            {% for proj in r.projects %}
+            <div class="project-card">
+                <div class="item-header">
+                    <div class="item-title" style="font-size: 16px;">{{ proj.title }}</div>
+                </div>
+                <div class="item-meta" style="font-size: 13px;">{{ proj.technologies|join(' • ') }}</div>
+                <p style="font-size: 14px; margin: 10px 0;">{{ proj.description }}</p>
+                {% if proj.link %}<a href="{{ proj.link }}"
+                    style="font-size: 12px; color: var(--primary); font-weight: 700; text-decoration: none;">VIEW
+                    PROJECT →</a>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Education</h2>
+        {% for edu in r.education %}
+        <div style="margin-bottom: 15px;">
+            <div class="item-header">
+                <div class="item-title">{{ edu.school }}</div>
+                <div class="item-date">{{ edu.end_date }}</div>
+            </div>
+            <div class="item-meta">{{ edu.degree }}{% if edu.field %} in {{ edu.field }}{% endif %} • GPA: {{ edu.gpa }}
+            </div>
+            {% if edu.honors %}<div style="font-size: 13px; font-style: italic;">Honors: {{ edu.honors }}</div>{% endif
+            %}
+        </div>
+        {% endfor %}
+    </section>
+
+    {% if r.certifications %}
+    <section>
+        <h2>Certifications</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            {% for cert in r.certifications %}
+            <span
+                style="background: var(--bg-light); border: 1px solid var(--border); padding: 5px 12px; border-radius: 4px; font-size: 13px;">
+                <strong>{{ cert.name }}</strong> ({{ cert.issuer }})
+            </span>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+</body>
+
+</html>

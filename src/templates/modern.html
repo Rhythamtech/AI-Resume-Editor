@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ r.name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Georgia', serif;
+            color: #000;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: 30px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .contact-line {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .contact-line span {
+            margin-right: 15px;
+        }
+
+        .job-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 15px;
+        }
+
+        .job-details {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .date-col {
+            font-weight: bold;
+            font-size: 14px;
+            text-align: right;
+            min-width: 120px;
+        }
+
+        ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>{{ r.name }}</h1>
+        <div class="contact-line">
+            <span>{{ r.contact.email }}</span>
+            <span>{{ r.contact.phone }}</span>
+            <span>{{ r.contact.city }}, {{ r.contact.region }}</span>
+        </div>
+        <div class="contact-line">
+            {% for link in r.contact.links %}
+            <span><a href="{{ link.url }}">{{ link.label }}</a></span>
+            {% endfor %}
+        </div>
+    </header>
+
+    {% if r.summary %}
+    <section>
+        <h2>Professional Summary</h2>
+        <p>{{ r.summary }}</p>
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Technical Skills</h2>
+        <div class="skills-container">
+            <ul>
+                {% for skill in r.skills %}
+                <li>{{ skill.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+        {% for job in r.experience %}
+        <div class="job-row">
+            <h3>{{ job.title }}</h3>
+            <span class="date-col">{{ job.start_date }} – {{ job.end_date if job.end_date else 'Present' }}</span>
+        </div>
+        <div class="job-details">
+            <span>{{ job.company }}</span>
+            <span>{{ job.location }}</span>
+        </div>
+        <ul>
+            {% for achievement in job.achievements %}
+            <li>{{ achievement }}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </section>
+
+    {% if r.projects %}
+    <section>
+        <h2>Projects</h2>
+        {% for proj in r.projects %}
+        <div class="job-row">
+            <h3>{{ proj.title }} {% if proj.link %}<a href="{{ proj.link }}"
+                    style="font-size:12px; font-weight:normal;">(Link)</a>{% endif %}</h3>
+            <span class="date-col">{{ proj.start_date }}</span>
+        </div>
+        {% if proj.technologies %}
+        <p style="font-size:14px; font-style:italic; margin-bottom:5px;">Stack: {{ proj.technologies|join(', ') }}</p>
+        {% endif %}
+        <ul>
+            <li>{{ proj.description }}</li>
+        </ul>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Education</h2>
+        {% for edu in r.education %}
+        <div class="job-row">
+            <h3>{{ edu.degree }}</h3>
+            <span class="date-col">{{ edu.end_date }}</span>
+        </div>
+        <div class="job-details">
+            <span>{{ edu.school }}</span>
+        </div>
+        {% if edu.honors %}
+        <div style="font-size:14px;">Honors: {{ edu.honors }}</div>
+        {% endif %}
+        {% endfor %}
+    </section>
+
+    {% if r.certifications %}
+    <section>
+        <h2>Certifications</h2>
+        <ul>
+            {% for cert in r.certifications %}
+            <li><strong>{{ cert.name }}</strong> – {{ cert.issuer }} ({{ cert.date }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if r.languages %}
+    <section>
+        <h2>Languages</h2>
+        <ul>
+            {% for lang in r.languages %}
+            <li>{{ lang.language }} {% if lang.proficiency %}- {{ lang.proficiency }}{% endif %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if r.volunteer %}
+    <section>
+        <h2>Volunteering</h2>
+        {% for vol in r.volunteer %}
+        <div class="job-row">
+            <h3>{{ vol.role }}</h3>
+            <span class="date-col">{{ vol.start_date }}</span>
+        </div>
+        <div class="job-details">
+            <span>{{ vol.organization }}</span>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+</body>
+
+</html>

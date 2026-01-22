@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ r.name }} - Resume</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.5; color: #000; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; }
+        .contact-info { font-size: 14px; margin-top: 8px; }
+        .contact-info span { margin: 0 5px; }
+        section { margin-bottom: 25px; }
+        h2 { font-size: 16px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; font-weight: bold; }
+        .job-block { margin-bottom: 15px; }
+        .job-title-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; }
+        .company-row { display: flex; justify-content: space-between; font-style: italic; font-size: 14px; margin-bottom: 5px; }
+        ul { margin: 0; padding-left: 18px; }
+        li { margin-bottom: 5px; font-size: 14px; }
+        .skills-list li { display: inline; }
+        .skills-list li::after { content: " • "; }
+        .skills-list li:last-child::after { content: ""; }
+        a { color: #000; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ r.name }}</h1>
+        <div class="contact-info">
+            {% if r.contact.city %}{{ r.contact.city }}, {{ r.contact.region }}{% endif %}
+            {% if r.contact.country %}, {{ r.contact.country }}{% endif %}
+            {% if r.contact.phone %}<span>|</span> {{ r.contact.phone }}{% endif %}
+            {% if r.contact.email %}<span>|</span> <a href="mailto:{{ r.contact.email }}">{{ r.contact.email }}</a>{% endif %}
+            {% for link in r.contact.links %}
+            <span>|</span> <a href="{{ link.url }}">{{ link.label }}</a>
+            {% endfor %}
+        </div>
+    </header>
+
+    {% if r.summary %}
+    <section>
+        <h2>Professional Summary</h2>
+        <p>{{ r.summary }}</p>
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Experience</h2>
+        {% for job in r.experience %}
+        <div class="job-block">
+            <div class="job-title-row">
+                <span>{{ job.title }}</span>
+                <span>{{ job.start_date }} – {{ job.end_date if job.end_date else 'Present' }}</span>
+            </div>
+            <div class="company-row">
+                <span>{{ job.company }} {% if job.employment_type %}({{ job.employment_type }}){% endif %}</span>
+                <span>{{ job.location }}</span>
+            </div>
+            <ul>
+                {% for achievement in job.achievements %}
+                <li>{{ achievement }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        {% for edu in r.education %}
+        <div class="job-block">
+            <div class="job-title-row">
+                <span>{{ edu.degree }} {% if edu.field %} in {{ edu.field }}{% endif %}</span>
+                <span>{{ edu.end_date }}</span>
+            </div>
+            <div class="company-row">
+                <span>{{ edu.school }}</span>
+                <span>{% if edu.gpa %}GPA: {{ edu.gpa }}{% endif %}</span>
+            </div>
+            {% if edu.honors %}
+            <div style="font-size: 14px; margin-top: 2px;"><em>Honors: {{ edu.honors }}</em></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Skills</h2>
+        <ul class="skills-list">
+            {% for skill in r.skills %}
+            <li>{{ skill.name }}{% if skill.level %} ({{ skill.level }}){% endif %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    
+    {% if r.languages %}
+    <section>
+        <h2>Languages</h2>
+        <ul class="skills-list">
+            {% for lang in r.languages %}
+            <li>{{ lang.language }}{% if lang.proficiency %} ({{ lang.proficiency }}){% endif %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if r.projects %}
+    <section>
+        <h2>Projects</h2>
+        {% for proj in r.projects %}
+        <div class="job-block">
+             <div class="job-title-row">
+                <span>
+                    {{ proj.title }}
+                    {% if proj.link %} <a href="{{ proj.link }}" style="font-size:12px; font-weight:normal;">[Link]</a>{% endif %}
+                </span>
+                <span>{{ proj.start_date }} {% if proj.end_date %}– {{ proj.end_date }}{% endif %}</span>
+            </div>
+            {% if proj.technologies %}
+            <p style="font-size:14px; font-style:italic;">Tech: {{ proj.technologies|join(', ') }}</p>
+            {% endif %}
+            <ul>
+                <li>{{ proj.description }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if r.certifications %}
+    <section>
+        <h2>Certifications</h2>
+        <ul>
+            {% for cert in r.certifications %}
+            <li><strong>{{ cert.name }}</strong> – {{ cert.issuer }} ({{ cert.date }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if r.volunteer %}
+    <section>
+        <h2>Volunteering</h2>
+        {% for vol in r.volunteer %}
+        <div class="job-block">
+            <div class="job-title-row">
+                <span>{{ vol.role }}</span>
+                <span>{{ vol.start_date }} – {{ vol.end_date if vol.end_date else 'Present' }}</span>
+            </div>
+            <div class="company-row">
+                <span>{{ vol.organization }}</span>
+            </div>
+            {% if vol.description %}
+            <ul><li>{{ vol.description }}</li></ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+</body>
+</html>

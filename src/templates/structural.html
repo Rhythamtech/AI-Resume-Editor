@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ r.name }}</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 14px;
+            color: #222;
+            line-height: 1.5;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 40px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        header {
+            border-bottom: 4px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 38px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header-role {
+            font-size: 18px;
+            color: #555;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .contact-info {
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .contact-info a {
+            color: #222;
+            text-decoration: none;
+        }
+
+        h2 {
+            background-color: #f2f2f2;
+            padding: 8px 15px;
+            margin-top: 30px;
+            border-left: 5px solid #333;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .job-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 3px;
+            margin-bottom: 5px;
+            margin-top: 20px;
+        }
+
+        .job-company {
+            font-weight: bold;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .job-date {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .job-title {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skill-list li {
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px 8px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .badge {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>{{ r.name }}</h1>
+        <div class="header-role">{{ r.job_role }}</div>
+        <div class="contact-info">
+            {{ r.contact.city }}, {{ r.contact.region }}
+            {% if r.contact.phone %} | {{ r.contact.phone }}{% endif %}
+            {% if r.contact.email %} | <a href="mailto:{{ r.contact.email }}">{{ r.contact.email }}</a>{% endif %}
+            {% for link in r.contact.links %}
+            | <a href="{{ link.url }}">{{ link.label }}</a>
+            {% endfor %}
+        </div>
+    </header>
+
+    {% if r.summary %}
+    <section>
+        <h2>Professional Summary</h2>
+        <p>{{ r.summary }}</p>
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Technical Skills</h2>
+        <ul class="skill-list">
+            {% for skill in r.skills %}
+            <li>{{ skill.name }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Professional Experience</h2>
+        {% for job in r.experience %}
+        <div class="job-container">
+            <div class="job-top-row">
+                <span class="job-company">{{ job.company }}</span>
+                <span class="job-date">{{ job.start_date }} – {{ job.end_date if job.end_date else 'Present' }}</span>
+            </div>
+            <div class="job-title">{{ job.title }}</div>
+            <ul>
+                {% for achievement in job.achievements %}
+                <li>{{ achievement }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </section>
+
+    {% if r.projects %}
+    <section>
+        <h2>Projects</h2>
+        {% for proj in r.projects %}
+        <div class="job-container">
+            <div class="job-top-row">
+                <span class="job-company">{{ proj.title }}</span>
+                <span class="job-date">{{ proj.start_date }}</span>
+            </div>
+            <p style="font-size: 13px; font-style: italic;">
+                {% if proj.technologies %}Stack: {{ proj.technologies|join(', ') }}{% endif %}
+                {% if proj.link %} | <a href="{{ proj.link }}">Project Link</a>{% endif %}
+            </p>
+            <ul>
+                <li>{{ proj.description }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    <section>
+        <h2>Education</h2>
+        {% for edu in r.education %}
+        <div class="job-container">
+            <div class="job-top-row">
+                <span class="job-company">{{ edu.school }}</span>
+                <span class="job-date">{{ edu.end_date }}</span>
+            </div>
+            <div class="job-title">{{ edu.degree }}</div>
+            {% if edu.honors %}<p style="font-size:13px; margin:0;">Honors: {{ edu.honors }}</p>{% endif %}
+        </div>
+        {% endfor %}
+    </section>
+
+    {% if r.languages %}
+    <section>
+        <h2>Languages</h2>
+        <ul class="skill-list" style="margin-top:10px;">
+            {% for lang in r.languages %}
+            <li>{{ lang.language }} ({{ lang.proficiency }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if r.volunteer %}
+    <section>
+        <h2>Volunteering</h2>
+        {% for vol in r.volunteer %}
+        <div class="job-container">
+            <div class="job-top-row">
+                <span class="job-company">{{ vol.organization }}</span>
+                <span class="job-date">{{ vol.start_date }}</span>
+            </div>
+            <div class="job-title">{{ vol.role }}</div>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if r.certifications %}
+    <section>
+        <h2>Certifications</h2>
+        <ul>
+            {% for cert in r.certifications %}
+            <li>{{ cert.name }} - {{ cert.issuer }} ({{ cert.date }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+</body>
+
+</html>
