@@ -8,5 +8,36 @@ wheels/
 
 # Virtual environments
 .venv
+venv/
+env/
+
+# Environment variables
 .env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
 test
+
+# Generated files
+resume_output_*.html
+*.pdf
+!examples/*.pdf
+
+# Backup (optional - uncomment if you don't want to track backups)
+backup/
+
+examples/

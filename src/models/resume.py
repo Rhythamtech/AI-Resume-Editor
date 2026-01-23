@@ -76,3 +76,4 @@ class ResumeSchema(BaseModel):
     languages: List[Language] = []
     volunteer: List[Volunteer] = []
     updated_at: Optional[str] = None
+
