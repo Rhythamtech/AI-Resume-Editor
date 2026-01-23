@@ -1,5 +1,6 @@
-from src.core import ResumeParser, ResumeEditor
-    
+from src.core import ResumeParser, ResumeEditor, ResumeGenerator
+from src.models import ResumeSchema
+import json    
 
 
 def main():
@@ -13,12 +14,15 @@ def main():
     resume_data = parser.process_resume(resume_path)
     print(f"✅ Resume parsed successfully for: {resume_data.name}")
 
+    # Extract keywords
+    print("📄 Extracting keywords...")
     with open("examples/sample_job_description.txt", "r") as f:
         job_desc = f.read()
 
+    # Edit resume
+    print("📄 Editing resume...")
     editor = ResumeEditor()
     edited_resume = editor.edit(resume_data, job_description=job_desc)
-
     
     # Generate HTML resume
     print("\n🎨 Generating HTML resume...")

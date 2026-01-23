@@ -61,6 +61,10 @@ class ResumeEditor:
             - BAD: "I learned how to use Python."
             - GOOD: "Implemented data parsing logic using Python."
             4. Keep it grounded: Do not say you deployed to production if you only ran it on localhost.
+
+            PROJECT:
+            ---
+            {project}
             """)
 
     def _extract_keywords(self, job_description: str) -> JobKeywords:
@@ -88,12 +92,12 @@ class ResumeEditor:
     def _tailor_projects(self, projects:list[Project], keywords: JobKeywords) -> list[Project]:
         tailored_projects = []
     
-        for project in projects:
+        for proj in projects:
             structured_llm = self.llm.with_structured_output(Project)
             response = structured_llm.invoke(
                 self.project_prompt.format(
-                    keywords_str=keywords.model_dump_json(),
-                    project=project.model_dump_json(),
+                    stack_str=str(keywords.technical_skills),
+                    project=proj.model_dump_json(),
                 )
             )
             tailored_projects.append(response)
