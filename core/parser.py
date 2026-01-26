@@ -6,6 +6,7 @@ import requests
 from typing import Dict
 import pdfplumber
 from langchain_core.prompts import PromptTemplate
+from fastapi import UploadFile
 
 from services import create_llm
 from models import ResumeSchema
@@ -207,4 +208,15 @@ def extract_candidate_info(resume_url_or_path: str) -> Dict:
     """
     parser = ResumeParser()
     result = parser.process_resume(resume_url_or_path)
+    return result.model_dump()
+
+async def parser_adapter(resume_file: UploadFile) -> Dict:
+    pdf_bytes = await resume_file.read()
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+        tmp.write(pdf_bytes)
+        tmp_path = tmp.name
+
+    parser = ResumeParser()
+    result = parser.process_resume(tmp_path)
     return result.model_dump()
