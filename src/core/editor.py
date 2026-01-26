@@ -8,16 +8,12 @@ from src.core.parser import STANDARD_SCHEMA
 class ResumeEditor:    
     def __init__(self):
         self.llm = create_llm()
-        self.prompt = PromptTemplate.from_template(
+        self.summary_prompt = PromptTemplate.from_template(
             """
-            You are a resume editor. You are given a resume and a job description.
-            
-            Standard schema:
-            {standard_schema}
-
-            Resume text:
-            ---
-            {resume_text}
+            You are an expert resume writer.
+            Rewrite ONLY my resume Summary to match the target keywords naturally (no keyword stuffing), stay truthful (don’t add new skills), and keep it under (25-45 words only), ATS-friendly, no first-person. 
+            Current Summary: {summary}
+            Target Keywords: {keywords_str}
             """
         )
         self.keywords_prompt = PromptTemplate.from_template(
@@ -37,7 +33,7 @@ class ResumeEditor:
             1. If the user's experience allows, swap generic terms for the specific keywords below.
             2. Example: Change "Used cloud servers" -> "Deployed on AWS EC2" (IF 'AWS' is a keyword).
             3. Do NOT lie. If the keyword is irrelevant to this specific job entry, ignore it.
-            
+            4. Make the bullet more concise and shorten it.
             KEYWORDS TO TARGET:
             {keywords_str}
 
@@ -103,16 +99,25 @@ class ResumeEditor:
             tailored_projects.append(response)
         return tailored_projects
 
+    def _tailor_summary(self, summary: str, keywords: JobKeywords) -> str:
+        response = self.llm.invoke(
+            self.summary_prompt.format(
+                summary=summary,
+                keywords_str=keywords.model_dump_json(),
+            )
+        )
+        return response.content
+
     def edit(self, resume: ResumeSchema, job_description: str) -> ResumeSchema:
         keywords = self._extract_keywords(job_description)
         tailored_experience = self._tailor_experience(resume.experience, keywords)
-        
+        tailored_summary = self._tailor_summary(resume.summary, keywords)
 
         if resume.projects:
             tailored_projects = self._tailor_projects(resume.projects, keywords)
             resume.projects = tailored_projects
 
         resume.experience = tailored_experience
-
+        resume.summary = tailored_summary
 
         return resume

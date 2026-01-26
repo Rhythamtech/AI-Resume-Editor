@@ -1,27 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{ r.name }} - Resume</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.5; color: #000; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; }
-        .contact-info { font-size: 14px; margin-top: 8px; }
-        .contact-info span { margin: 0 5px; }
-        section { margin-bottom: 25px; }
-        h2 { font-size: 16px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; font-weight: bold; }
-        .job-block { margin-bottom: 15px; }
-        .job-title-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; }
-        .company-row { display: flex; justify-content: space-between; font-style: italic; font-size: 14px; margin-bottom: 5px; }
-        ul { margin: 0; padding-left: 18px; }
-        li { margin-bottom: 5px; font-size: 14px; }
-        .skills-list li { display: inline; }
-        .skills-list li::after { content: " • "; }
-        .skills-list li:last-child::after { content: ""; }
-        a { color: #000; text-decoration: none; }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: #000;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-size: 11pt;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 22pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-info {
+            font-size: 10pt;
+            margin-top: 8px;
+        }
+
+        .contact-info span {
+            margin: 0 5px;
+        }
+
+        section {
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 14pt;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .job-block {
+            margin-bottom: 15px;
+        }
+
+        .job-title-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 12pt;
+        }
+
+        .company-row {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            font-size: 11pt;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        li {
+            margin-bottom: 5px;
+            font-size: 11pt;
+        }
+
+        .skills-list li {
+            display: inline;
+        }
+
+        .skills-list li::after {
+            content: " • ";
+        }
+
+        .skills-list li:last-child::after {
+            content: "";
+        }
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <h1>{{ r.name }}</h1>
@@ -29,7 +104,8 @@
             {% if r.contact.city %}{{ r.contact.city }}, {{ r.contact.region }}{% endif %}
             {% if r.contact.country %}, {{ r.contact.country }}{% endif %}
             {% if r.contact.phone %}<span>|</span> {{ r.contact.phone }}{% endif %}
-            {% if r.contact.email %}<span>|</span> <a href="mailto:{{ r.contact.email }}">{{ r.contact.email }}</a>{% endif %}
+            {% if r.contact.email %}<span>|</span> <a href="mailto:{{ r.contact.email }}">{{ r.contact.email }}</a>{%
+            endif %}
             {% for link in r.contact.links %}
             <span>|</span> <a href="{{ link.url }}">{{ link.label }}</a>
             {% endfor %}
@@ -77,7 +153,7 @@
                 <span>{% if edu.gpa %}GPA: {{ edu.gpa }}{% endif %}</span>
             </div>
             {% if edu.honors %}
-            <div style="font-size: 14px; margin-top: 2px;"><em>Honors: {{ edu.honors }}</em></div>
+            <div style="font-size: 11pt; margin-top: 2px;"><em>Honors: {{ edu.honors }}</em></div>
             {% endif %}
         </div>
         {% endfor %}
@@ -91,7 +167,7 @@
             {% endfor %}
         </ul>
     </section>
-    
+
     {% if r.languages %}
     <section>
         <h2>Languages</h2>
@@ -108,15 +184,16 @@
         <h2>Projects</h2>
         {% for proj in r.projects %}
         <div class="job-block">
-             <div class="job-title-row">
+            <div class="job-title-row">
                 <span>
                     {{ proj.title }}
-                    {% if proj.link %} <a href="{{ proj.link }}" style="font-size:12px; font-weight:normal;">[Link]</a>{% endif %}
+                    {% if proj.link %} <a href="{{ proj.link }}"
+                        style="font-size:10pt; font-weight:normal;">[Link]</a>{% endif %}
                 </span>
                 <span>{{ proj.start_date }} {% if proj.end_date %}– {{ proj.end_date }}{% endif %}</span>
             </div>
             {% if proj.technologies %}
-            <p style="font-size:14px; font-style:italic;">Tech: {{ proj.technologies|join(', ') }}</p>
+            <p style="font-size:11pt; font-style:italic;">Tech: {{ proj.technologies|join(', ') }}</p>
             {% endif %}
             <ul>
                 <li>{{ proj.description }}</li>
@@ -150,11 +227,14 @@
                 <span>{{ vol.organization }}</span>
             </div>
             {% if vol.description %}
-            <ul><li>{{ vol.description }}</li></ul>
+            <ul>
+                <li>{{ vol.description }}</li>
+            </ul>
             {% endif %}
         </div>
         {% endfor %}
     </section>
     {% endif %}
 </body>
+
 </html>

@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Trebuchet MS', sans-serif;
-            font-size: 14px;
+            font-size: 11pt;
             color: #222;
             line-height: 1.5;
             max-width: 850px;
@@ -24,21 +24,21 @@
         }
 
         h1 {
-            font-size: 38px;
+            font-size: 28pt;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         .header-role {
-            font-size: 18px;
+            font-size: 13pt;
             color: #555;
             margin-top: 5px;
             font-style: italic;
         }
 
         .contact-info {
-            font-size: 13px;
+            font-size: 10pt;
             margin-top: 10px;
         }
 
@@ -53,7 +53,7 @@
             margin-top: 30px;
             border-left: 5px solid #333;
             text-transform: uppercase;
-            font-size: 16px;
+            font-size: 14pt;
             font-weight: bold;
         }
 
@@ -69,12 +69,12 @@
 
         .job-company {
             font-weight: bold;
-            font-size: 15px;
+            font-size: 12pt;
             color: #444;
         }
 
         .job-date {
-            font-size: 13px;
+            font-size: 11pt;
             font-weight: bold;
         }
 
@@ -97,7 +97,7 @@
             padding: 4px 8px;
             margin-right: 5px;
             margin-bottom: 5px;
-            font-size: 12px;
+            font-size: 10pt;
         }
 
         ul {
@@ -109,7 +109,7 @@
             background: #eee;
             padding: 2px 6px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 10pt;
             font-weight: bold;
             margin-right: 5px;
         }
@@ -173,7 +173,7 @@
                 <span class="job-company">{{ proj.title }}</span>
                 <span class="job-date">{{ proj.start_date }}</span>
             </div>
-            <p style="font-size: 13px; font-style: italic;">
+            <p style="font-size: 10pt; font-style: italic;">
                 {% if proj.technologies %}Stack: {{ proj.technologies|join(', ') }}{% endif %}
                 {% if proj.link %} | <a href="{{ proj.link }}">Project Link</a>{% endif %}
             </p>
@@ -194,7 +194,7 @@
                 <span class="job-date">{{ edu.end_date }}</span>
             </div>
             <div class="job-title">{{ edu.degree }}</div>
-            {% if edu.honors %}<p style="font-size:13px; margin:0;">Honors: {{ edu.honors }}</p>{% endif %}
+            {% if edu.honors %}<p style="font-size:10pt; margin:0;">Honors: {{ edu.honors }}</p>{% endif %}
         </div>
         {% endfor %}
     </section>

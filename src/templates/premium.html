@@ -29,6 +29,7 @@
             margin: 0 auto;
             padding: 50px;
             background: #fff;
+            font-size: 11pt;
         }
 
         header {
@@ -42,14 +43,14 @@
 
         .header-left h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 32pt;
             margin: 0;
             color: #111;
             line-height: 1.1;
         }
 
         .header-left .role {
-            font-size: 20px;
+            font-size: 14pt;
             color: var(--primary);
             font-weight: 600;
             letter-spacing: 1px;
@@ -59,7 +60,7 @@
 
         .header-right {
             text-align: right;
-            font-size: 14px;
+            font-size: 10pt;
             color: var(--text-light);
         }
 
@@ -74,7 +75,7 @@
         }
 
         h2 {
-            font-size: 14px;
+            font-size: 11pt;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--primary);
@@ -85,7 +86,7 @@
         }
 
         .summary {
-            font-size: 16px;
+            font-size: 12pt;
             color: #4b5563;
         }
 
@@ -98,18 +99,18 @@
 
         .item-title {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 13pt;
             color: #111;
         }
 
         .item-date {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 11pt;
             color: var(--text-light);
         }
 
         .item-meta {
-            font-size: 15px;
+            font-size: 11pt;
             color: var(--text-light);
             margin-bottom: 8px;
             font-weight: 500;
@@ -135,7 +136,7 @@
             background: var(--bg-light);
             padding: 8px 12px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 10pt;
             font-weight: 600;
             border: 1px solid var(--border);
             text-align: center;
@@ -155,7 +156,7 @@
 
         .project-card h3 {
             margin: 0 0 10px 0;
-            font-size: 16px;
+            font-size: 12pt;
         }
 
         @media print {
@@ -233,10 +234,10 @@
                 <div class="item-header">
                     <div class="item-title" style="font-size: 16px;">{{ proj.title }}</div>
                 </div>
-                <div class="item-meta" style="font-size: 13px;">{{ proj.technologies|join(' • ') }}</div>
-                <p style="font-size: 14px; margin: 10px 0;">{{ proj.description }}</p>
+                <div class="item-meta" style="font-size: 10pt;">{{ proj.technologies|join(' • ') }}</div>
+                <p style="font-size: 11pt; margin: 10px 0;">{{ proj.description }}</p>
                 {% if proj.link %}<a href="{{ proj.link }}"
-                    style="font-size: 12px; color: var(--primary); font-weight: 700; text-decoration: none;">VIEW
+                    style="font-size: 10pt; color: var(--primary); font-weight: 700; text-decoration: none;">VIEW
                     PROJECT →</a>{% endif %}
             </div>
             {% endfor %}
@@ -254,7 +255,7 @@
             </div>
             <div class="item-meta">{{ edu.degree }}{% if edu.field %} in {{ edu.field }}{% endif %} • GPA: {{ edu.gpa }}
             </div>
-            {% if edu.honors %}<div style="font-size: 13px; font-style: italic;">Honors: {{ edu.honors }}</div>{% endif
+            {% if edu.honors %}<div style="font-size: 10pt; font-style: italic;">Honors: {{ edu.honors }}</div>{% endif
             %}
         </div>
         {% endfor %}
@@ -266,7 +267,7 @@
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
             {% for cert in r.certifications %}
             <span
-                style="background: var(--bg-light); border: 1px solid var(--border); padding: 5px 12px; border-radius: 4px; font-size: 13px;">
+                style="background: var(--bg-light); border: 1px solid var(--border); padding: 5px 12px; border-radius: 4px; font-size: 10pt;">
                 <strong>{{ cert.name }}</strong> ({{ cert.issuer }})
             </span>
             {% endfor %}

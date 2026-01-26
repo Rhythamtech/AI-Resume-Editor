@@ -27,7 +27,7 @@ def main():
     # Generate HTML resume
     print("\n🎨 Generating HTML resume...")
     generator = ResumeGenerator()
-    output_file = generator.generate(edited_resume, template_choice="1", output_filename="resume.html")
+    output_file = generator.generate(edited_resume, template_choice="3", output_filename="resume.html")
     print(f"✅ Resume generated: {output_file}")
 
 

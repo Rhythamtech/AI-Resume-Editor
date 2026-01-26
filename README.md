@@ -131,19 +131,11 @@ print("Domain Lingo:", keywords.domain_lingo)
 3. **Structural** - Organized, section-focused layout
 4. **Premium** - Elegant, feature-rich design
 
-## 🧪 Testing
-
-Run tests using pytest:
-
-```bash
-pytest tests/
-```
 
 ## 📚 Documentation
 
 - See `examples/README.md` for more usage examples
 - Check `examples/sample_job_description.txt` for job description format
-- Review `backup/` for previous project structure reference
 
 ## 🔧 Configuration
 

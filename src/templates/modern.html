@@ -12,6 +12,7 @@
             max-width: 850px;
             margin: 40px auto;
             padding: 0 40px;
+            font-size: 11pt;
         }
 
         h1,
@@ -22,14 +23,14 @@
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 24pt;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         h2 {
-            font-size: 18px;
+            font-size: 14pt;
             margin-top: 30px;
             border-bottom: 1px solid #000;
             padding-bottom: 5px;
@@ -37,14 +38,14 @@
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 12pt;
             margin: 0;
             font-weight: bold;
         }
 
         .contact-line {
             margin-top: 8px;
-            font-size: 14px;
+            font-size: 10pt;
         }
 
         .contact-line span {
@@ -63,13 +64,13 @@
             justify-content: space-between;
             font-style: italic;
             margin-bottom: 5px;
-            font-size: 14px;
+            font-size: 11pt;
             color: #555;
         }
 
         .date-col {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 11pt;
             text-align: right;
             min-width: 120px;
         }
@@ -139,11 +140,11 @@
         {% for proj in r.projects %}
         <div class="job-row">
             <h3>{{ proj.title }} {% if proj.link %}<a href="{{ proj.link }}"
-                    style="font-size:12px; font-weight:normal;">(Link)</a>{% endif %}</h3>
+                    style="font-size:10pt; font-weight:normal;">(Link)</a>{% endif %}</h3>
             <span class="date-col">{{ proj.start_date }}</span>
         </div>
         {% if proj.technologies %}
-        <p style="font-size:14px; font-style:italic; margin-bottom:5px;">Stack: {{ proj.technologies|join(', ') }}</p>
+        <p style="font-size:11pt; font-style:italic; margin-bottom:5px;">Stack: {{ proj.technologies|join(', ') }}</p>
         {% endif %}
         <ul>
             <li>{{ proj.description }}</li>
@@ -163,7 +164,7 @@
             <span>{{ edu.school }}</span>
         </div>
         {% if edu.honors %}
-        <div style="font-size:14px;">Honors: {{ edu.honors }}</div>
+        <div style="font-size:11pt;">Honors: {{ edu.honors }}</div>
         {% endif %}
         {% endfor %}
     </section>
