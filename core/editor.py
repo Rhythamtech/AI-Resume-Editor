@@ -1,8 +1,7 @@
 import json
 from langchain_core.prompts import PromptTemplate
-from src.services import create_llm
-from src.models import ResumeSchema, JobKeywords, Experience, Project
-from src.core.parser import STANDARD_SCHEMA
+from services import create_llm
+from models import ResumeSchema, JobKeywords, Experience, Project
 
 
 class ResumeEditor:    

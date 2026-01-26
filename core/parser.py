@@ -7,8 +7,8 @@ from typing import Dict
 import pdfplumber
 from langchain_core.prompts import PromptTemplate
 
-from src.services import create_llm
-from src.models import ResumeSchema
+from services import create_llm
+from models import ResumeSchema
 
 
 # Standard schema definition for LLM prompts

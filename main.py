@@ -1,5 +1,5 @@
-from src.core import ResumeParser, ResumeEditor, ResumeGenerator
-from src.models import ResumeSchema
+from core import ResumeParser, ResumeEditor, ResumeGenerator
+from models import ResumeSchema
 import json    
 
 

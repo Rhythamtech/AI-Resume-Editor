@@ -1,7 +1,7 @@
 from jinja2 import Environment, FileSystemLoader
 
-from src.models import ResumeSchema
-from src.config import settings
+from models import ResumeSchema
+from config import settings
 
 
 class ResumeGenerator:

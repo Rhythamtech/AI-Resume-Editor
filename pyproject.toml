@@ -1,28 +1,7 @@
 [project]
 name = "ai-resume-editor"
 version = "0.1.0"
-description = "AI-powered resume editor that parses, tailors, and generates professional resumes using LLMs"
+description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    "jinja2>=3.1.6",
-    "pydantic>=2.12.5",
-    "pdfplumber>=0.11.0",
-    "pypdfium2>=5.3.0",
-    "python-dotenv>=1.2.1",
-    "langchain-core>=0.3.0",
-    "langchain-openai>=0.2.0",
-    "requests>=2.31.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=8.0.0",
-    "pytest-cov>=4.1.0",
-    "black>=24.0.0",
-    "ruff>=0.1.0",
-]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+dependencies = []

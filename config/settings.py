@@ -15,7 +15,7 @@ class Settings:
         
         # Application Configuration
         self.default_temperature = 0.7
-        self.templates_dir = "src/templates"
+        self.templates_dir = "templates"
         
     def validate(self):
         """Validate required configuration."""
