@@ -30,7 +30,8 @@ class ResumeGenerator:
         self, 
         resume_data: ResumeSchema, 
         template_choice: str, 
-        output_filename: str = None
+        output_filename: str = None,
+        html_content: bool = False
     ) -> str:
         """
         Generate a resume based on the provided data and template.
@@ -48,9 +49,9 @@ class ResumeGenerator:
         rendered_html = template.render(r=resume_data)
         
         if not output_filename:
-            output_filename = f"resume_output_{template_choice}.html"
+            output_filename = f"resume_output.html"
             
         with open(output_filename, "w", encoding="utf-8") as f:
             f.write(rendered_html)
             
-        return output_filename
+        return rendered_html if html_content else output_filename

@@ -1,0 +1,116 @@
+{
+    "info": {
+        "_postman_id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+        "name": "AI Resume Editor API",
+        "description": "Postman collection for the AI Resume Editor API endpoints.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        ""
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Parse Resume",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "src": []
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/parse",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "parse"
+                    ]
+                },
+                "description": "Upload a PDF resume to parse it into structured JSON."
+            },
+            "response": []
+        },
+        {
+            "name": "Edit Resume",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"resume\": {\n        \"name\": \"John Doe\",\n        \"contact\": {\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+1234567890\",\n            \"city\": \"San Francisco\",\n            \"region\": \"CA\",\n            \"country\": \"USA\",\n            \"links\": [\n                {\n                    \"label\": \"LinkedIn\",\n                    \"url\": \"https://linkedin.com/in/johndoe\"\n                }\n            ]\n        },\n        \"summary\": \"Experienced software engineer with a focus on AI and machine learning.\",\n        \"experience\": [\n            {\n                \"title\": \"Senior Software Engineer\",\n                \"company\": \"Tech Corp\",\n                \"location\": \"Remote\",\n                \"start_date\": \"Jan 2020\",\n                \"end_date\": \"Present\",\n                \"employment_type\": \"Full-time\",\n                \"achievements\": [\n                    \"Led the development of a core ML pipeline.\",\n                    \"Improved system performance by 30%.\"\n                ],\n                \"keywords\": [\"Python\", \"PyTorch\", \"AWS\"]\n            }\n        ],\n        \"education\": [\n            {\n                \"degree\": \"Bachelor of Science\",\n                \"field\": \"Computer Science\",\n                \"school\": \"University of Technology\",\n                \"start_date\": \"2015\",\n                \"end_date\": \"2019\",\n                \"gpa\": \"3.8\"\n            }\n        ],\n        \"projects\": [\n            {\n                \"title\": \"AI Chatbot\",\n                \"description\": \"A project to build an AI-powered chatbot.\",\n                \"technologies\": [\"Python\", \"NLP\", \"OpenAI\"],\n                \"link\": \"https://github.com/johndoe/chatbot\"\n            }\n        ],\n        \"skills\": [\n            {\n                \"name\": \"Python\",\n                \"level\": \"Expert\"\n            },\n            {\n                \"name\": \"Kubernetes\",\n                \"level\": \"Intermediate\"\n            }\n        ],\n        \"certifications\": [\n            {\n                \"name\": \"AWS Certified Developer\",\n                \"issuer\": \"Amazon\",\n                \"date\": \"2021\"\n            }\n        ],\n        \"languages\": [\n            {\n                \"language\": \"English\",\n                \"proficiency\": \"Native\"\n            }\n        ],\n        \"volunteer\": []\n    },\n    \"job_description\": \"We are looking for a Python expert with AWS experience to build scalable AI solutions.\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/edit",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "edit"
+                    ]
+                },
+                "description": "Edit the resume based on a job description using AI."
+            },
+            "response": []
+        },
+        {
+            "name": "Render Resume",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"resume\": {\n        \"name\": \"John Doe\",\n        \"contact\": {\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+1234567890\",\n            \"city\": \"San Francisco\",\n            \"region\": \"CA\",\n            \"country\": \"USA\",\n            \"links\": [\n                {\n                    \"label\": \"LinkedIn\",\n                    \"url\": \"https://linkedin.com/in/johndoe\"\n                }\n            ]\n        },\n        \"summary\": \"Experienced software engineer with a focus on AI and machine learning.\",\n        \"experience\": [\n            {\n                \"title\": \"Senior Software Engineer\",\n                \"company\": \"Tech Corp\",\n                \"location\": \"Remote\",\n                \"start_date\": \"Jan 2020\",\n                \"end_date\": \"Present\",\n                \"employment_type\": \"Full-time\",\n                \"achievements\": [\n                    \"Led the development of a core ML pipeline.\",\n                    \"Improved system performance by 30%.\"\n                ],\n                \"keywords\": [\"Python\", \"PyTorch\", \"AWS\"]\n            }\n        ],\n        \"education\": [\n            {\n                \"degree\": \"Bachelor of Science\",\n                \"field\": \"Computer Science\",\n                \"school\": \"University of Technology\",\n                \"start_date\": \"2015\",\n                \"end_date\": \"2019\",\n                \"gpa\": \"3.8\"\n            }\n        ],\n        \"projects\": [\n            {\n                \"title\": \"AI Chatbot\",\n                \"description\": \"A project to build an AI-powered chatbot.\",\n                \"technologies\": [\"Python\", \"NLP\", \"OpenAI\"],\n                \"link\": \"https://github.com/johndoe/chatbot\"\n            }\n        ],\n        \"skills\": [\n            {\n                \"name\": \"Python\",\n                \"level\": \"Expert\"\n            },\n            {\n                \"name\": \"Kubernetes\",\n                \"level\": \"Intermediate\"\n            }\n        ],\n        \"certifications\": [\n            {\n                \"name\": \"AWS Certified Developer\",\n                \"issuer\": \"Amazon\",\n                \"date\": \"2021\"\n            }\n        ],\n        \"languages\": [\n            {\n                \"language\": \"English\",\n                \"proficiency\": \"Native\"\n            }\n        ],\n        \"volunteer\": []\n    },\n    \"template_choice\": \"3\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/render",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "render"
+                    ]
+                },
+                "description": "Render the resume into HTML using a selected template."
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000",
+            "type": "string"
+        }
+    ]
+}
