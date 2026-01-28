@@ -12,6 +12,7 @@ from services import create_llm
 from models import ResumeSchema
 
 
+
 # Standard schema definition for LLM prompts
 STANDARD_SCHEMA = """{
       "id": "uuid",
@@ -88,9 +89,7 @@ class ResumeParser:
         self.resume_parse_prompt = PromptTemplate.from_template(
     """
     You are a strict parser. Convert the following resume text into JSON matching the "Standard schema" shown below. Output ONLY valid JSON. 
-    
-    Standard schema:
-    {standard_schema}
+
 
     Resume text:
     ---
@@ -158,16 +157,10 @@ class ResumeParser:
                 raise ValueError("PDF loaded but no content found.")
             
             prompt = self.resume_parse_prompt.format(
-                resume_text=resume_text, 
-                standard_schema=STANDARD_SCHEMA
+                resume_text=resume_text 
             )
-            response = self.llm.invoke(prompt)
-            response_content = response.content
-            
-            json_data = self._extract_json_from_markdown(response_content)
-            resume_schema = ResumeSchema(**json_data)
-            
-            return resume_schema
+            response = self.llm.with_structured_output(ResumeSchema).invoke(prompt)
+            return response
         finally:
             if is_url and os.path.exists(tmp_path):
                 os.remove(tmp_path)
