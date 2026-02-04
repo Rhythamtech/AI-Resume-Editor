@@ -1,0 +1,13 @@
+
+
+services:
+  api:
+    image: rhythamnegi/resume-editor:latest
+    ports:
+      - "8000:8000"
+    environment:
+      OPENAI_API_KEY: "[ENCRYPTION_KEY]"
+      OPENAI_MODEL: "openai/gpt-oss-120b"
+      OPENAI_BASE_URL: "https://xxxxx.xxxxx/v1"
+
+  

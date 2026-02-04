@@ -41,3 +41,5 @@ resume_output_*.html
 backup/
 
 examples/
+
+Dockerfile
